@@ -6,6 +6,7 @@ defmodule PokeCall do
   Contexts are also responsible for managing your data, regardless
   if it comes from the database, an external API or others.
   """
+
   use Tesla
 
   plug Tesla.Middleware.BaseUrl, "https://pokeapi.co/api/v2/pokemon/"
@@ -43,7 +44,9 @@ defmodule PokeCall do
   end
 
   defp get_id(poke_name) do
-    with true <- poke_name_check(poke_name) do
+    ## FOR POKEMON NAME CHECKER 
+    #with true <- poke_name_check(poke_name) do
+    with {:ok, info} <- get(poke_name <> "/") do
       {:ok, info} = get(poke_name <> "/")
       info.body["id"]
     else
@@ -53,8 +56,7 @@ defmodule PokeCall do
   end
 
   defp get_name(poke_id_num) do
-
-    case (poke_id_num <= 898 && poke_id_num > 0) do
+    case poke_id_num <= 898 && poke_id_num > 0 do
       true ->
         {:ok, info} = get(Integer.to_string(poke_id_num) <> "/")
         info.body["name"]
@@ -64,15 +66,13 @@ defmodule PokeCall do
     end
   end
 
+## POKEMON NAME CHECKER available if needed but EXTREMELY SLOW
   defp poke_name_check(poke_name) do
    all_poke = Enum.reduce(1..898, %{}, fn
       poke, poke_map ->
-       #%{poke_map | get_name(poke) => poke}
        Map.put(poke_map, get_name(poke), poke)
     end)
 
     Map.has_key?(all_poke, poke_name)
-
-    #poke_name in poke_list
   end
 end
