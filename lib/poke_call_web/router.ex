@@ -52,5 +52,6 @@ defmodule PokeCallWeb.Router do
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+ forward "/graphiql", Absinthe.Plug.GraphiQL, schema: PokeCallWeb.Schema
   end
 end

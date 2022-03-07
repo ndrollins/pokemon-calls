@@ -53,6 +53,9 @@ defmodule PokeCall.MixProject do
       {:tesla, "~> 1.4"},
       # optional, but recommended adapter for tesla
       {:hackney, "~> 1.17"},
+      #GraphQL deps
+      {:absinthe, "~> 1.6"},
+      {:absinthe_plug, "~> 1.5"},
     ]
   end
 

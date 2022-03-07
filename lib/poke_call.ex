@@ -24,7 +24,7 @@ defmodule PokeCall do
             |> String.split("\n", trim: true)
             |> List.to_string
             |> String.to_integer()
-        get_name(input)
+        _get_name(input)
       "n" ->
         choice2 = IO.gets("Enter pokemon name [y]es or [n]o: ")
             |> String.split("\n", trim: true)
@@ -36,18 +36,17 @@ defmodule PokeCall do
             input2 = IO.gets("Enter pokemon name: ")
                 |> String.split("\n", trim: true)
                 |> List.to_string
-            get_id(input2)
+            _get_id(input2)
           "n" ->
             IO.puts("Have a beautiful poke-free day!")
         end
     end
   end
 
-  defp get_id(poke_name) do
+  defp _get_id(poke_name) do
     ## FOR POKEMON NAME CHECKER 
     #with true <- poke_name_check(poke_name) do
     with {:ok, info} <- get(poke_name <> "/") do
-      {:ok, info} = get(poke_name <> "/")
       info.body["id"]
     else
       _ ->
@@ -55,22 +54,21 @@ defmodule PokeCall do
     end
   end
 
-  defp get_name(poke_id_num) do
+  defp _get_name(poke_id_num) do
     case poke_id_num <= 898 && poke_id_num > 0 do
       true ->
         {:ok, info} = get(Integer.to_string(poke_id_num) <> "/")
         info.body["name"]
-
       false ->
         {:error, "Pokemon ID number is invalid"}
     end
   end
 
 ## POKEMON NAME CHECKER available if needed but EXTREMELY SLOW
-  defp poke_name_check(poke_name) do
+  defp _poke_name_check(poke_name) do
    all_poke = Enum.reduce(1..898, %{}, fn
       poke, poke_map ->
-       Map.put(poke_map, get_name(poke), poke)
+       Map.put(poke_map, _get_name(poke), poke)
     end)
 
     Map.has_key?(all_poke, poke_name)
