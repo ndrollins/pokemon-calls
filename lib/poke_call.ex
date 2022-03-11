@@ -6,6 +6,10 @@ defmodule PokeCall do
   Contexts are also responsible for managing your data, regardless
   if it comes from the database, an external API or others.
   """
+  import Ecto.Query, warn: false
+  alias PokeCall.Repo
+
+  alias PokeCall.Pokedex.Pokemon
 
   use Tesla
 
@@ -59,6 +63,8 @@ defmodule PokeCall do
       true ->
         {:ok, info} = get(Integer.to_string(poke_id_num) <> "/")
         info.body["name"]
+
+        #PokeCall.Pokedex.create_pokemon(%Pokemon{name: info.body["name"], id: poke_id_num})
       false ->
         {:error, "Pokemon ID number is invalid"}
     end

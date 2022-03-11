@@ -22,8 +22,8 @@ defmodule PokeCallWeb.Schema do
     field :pokemon, :pokemon do
       arg(:id, non_null(:id))
 
-      resolve(fn args, _->
-        {:ok, PokeCall.Pokedex.get_pokemon!(args)}
+      resolve(fn %{id: id} = _args, _->
+        {:ok, PokeCall.Pokedex.get_pokemon!(id)}
       end)
     end
   end

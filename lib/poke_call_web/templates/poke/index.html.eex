@@ -1,0 +1,9 @@
+<h1>Listing Pokemons</h1>                                                                                                                                   
+ <table>
+    <%= for pokemon <- @pokemons do %>
+      <tr>
+       <td><b><%= pokemon_info(pokemon) %></b> (<%= pokemon.name %>)</td>-
+      </tr>
+    <% end %>-
+ </table>
+

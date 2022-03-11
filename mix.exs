@@ -20,7 +20,7 @@ defmodule PokeCall.MixProject do
   def application do
     [
       mod: {PokeCall.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :absinthe_plug]
     ]
   end
 

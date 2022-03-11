@@ -17,6 +17,7 @@ defmodule PokeCallWeb.Router do
   scope "/", PokeCallWeb do
     pipe_through :browser
 
+    get "/poke", PokeController, :index
     get "/", PageController, :index
   end
 
